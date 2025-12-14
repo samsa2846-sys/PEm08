@@ -1,6 +1,6 @@
 """
-Build script for MotionCraft Competition Analyzer
-Creates standalone executable using PyInstaller
+Скрипт сборки для MotionCraft Competition Analyzer
+Создает автономный исполняемый файл с использованием PyInstaller
 """
 import PyInstaller.__main__
 import sys
@@ -8,24 +8,24 @@ import os
 from pathlib import Path
 
 def build_executable():
-    """Build executable with PyInstaller"""
+    """Собрать исполняемый файл с помощью PyInstaller"""
     
-    # Get project root
+    # Получить корневую директорию проекта
     project_root = Path(__file__).parent.absolute()
     
-    # PyInstaller arguments
+    # Аргументы PyInstaller
     args = [
-        'desktop_app.py',  # Main script
-        '--name=CompetitionMonitor',  # Executable name
-        '--onefile',  # Single executable file
-        '--windowed',  # No console window
-        '--icon=NONE',  # Add icon path if you have one
+        'desktop_app.py',  # Главный скрипт
+        '--name=CompetitionMonitor',  # Имя исполняемого файла
+        '--onefile',  # Один исполняемый файл
+        '--windowed',  # Без консольного окна
+        '--icon=NONE',  # Добавьте путь к иконке, если есть
         
-        # Add data files
+        # Добавить файлы данных
         f'--add-data=frontend{os.pathsep}frontend',
         f'--add-data=.env.example{os.pathsep}.',
         
-        # Hidden imports
+        # Скрытые импорты
         '--hidden-import=PyQt6',
         '--hidden-import=httpx',
         '--hidden-import=pydantic',
@@ -36,38 +36,38 @@ def build_executable():
         '--hidden-import=backend.models',
         '--hidden-import=backend.models.schemas',
         
-        # Clean build
+        # Чистая сборка
         '--clean',
         
-        # Output directory
+        # Директория вывода
         '--distpath=dist',
         '--workpath=build',
         '--specpath=.',
     ]
     
     print("=" * 60)
-    print("Building MotionCraft Competition Analyzer")
+    print("Сборка MotionCraft Competition Analyzer")
     print("=" * 60)
-    print(f"Project root: {project_root}")
-    print(f"Python version: {sys.version}")
+    print(f"Корневая директория проекта: {project_root}")
+    print(f"Версия Python: {sys.version}")
     print("=" * 60)
     
-    # Run PyInstaller
+    # Запустить PyInstaller
     try:
         PyInstaller.__main__.run(args)
         print("\n" + "=" * 60)
-        print("✅ Build completed successfully!")
+        print("Сборка завершена успешно!")
         print("=" * 60)
-        print(f"Executable location: {project_root / 'dist' / 'CompetitionMonitor.exe'}")
-        print("\nTo run:")
-        print("  1. Copy .env file to the same directory as CompetitionMonitor.exe")
-        print("  2. Run CompetitionMonitor.exe")
+        print(f"Расположение исполняемого файла: {project_root / 'dist' / 'CompetitionMonitor.exe'}")
+        print("\nДля запуска:")
+        print("  1. Скопируйте файл .env в ту же папку, что и CompetitionMonitor.exe")
+        print("  2. Запустите CompetitionMonitor.exe")
         print("=" * 60)
     except Exception as e:
         print("\n" + "=" * 60)
-        print("❌ Build failed!")
+        print("Ошибка сборки!")
         print("=" * 60)
-        print(f"Error: {e}")
+        print(f"Ошибка: {e}")
         sys.exit(1)
 
 
