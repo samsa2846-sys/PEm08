@@ -1,8 +1,11 @@
 """
-Configuration for the application - Python 3.6 compatible
+Configuration for the application
 """
 import os
-from pydantic import BaseSettings
+try:
+    from pydantic_settings import BaseSettings
+except ImportError:
+    from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):

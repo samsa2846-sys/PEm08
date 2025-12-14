@@ -10,10 +10,12 @@ ENV/
 *.egg-info/
 dist/
 build/
+*.spec
 
-# Environment
+# Environment - ВАЖНО: не загружать API ключи!
 .env
 .env.local
+.env.production
 
 # IDE
 .vscode/
@@ -39,3 +41,8 @@ data/history.json
 tmp/
 temp/
 *.tmp
+
+# PyInstaller
+*.spec
+build/
+dist/

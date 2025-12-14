@@ -7,7 +7,8 @@ AI-powered competitor analysis tool for 3D animation and motion design studios.
 - **Text Analysis**: Analyze competitor descriptions and USPs using DeepSeek AI
 - **Image Analysis**: Visual content analysis using Yandex Vision OCR
 - **Scoring System**: Rate competitors on design, animation, innovation, execution, and client focus
-- **Modern UI**: Clean, responsive web interface
+- **Desktop Application**: PyQt6 GUI with CompetitionMonitor.exe
+- **Web Interface**: Clean, responsive web UI for browser access
 
 ## Tech Stack
 
@@ -32,10 +33,13 @@ pem08/
 ├── frontend/
 │   ├── index.html             # Web interface
 │   ├── app.js                 # JavaScript logic
-│   └── styles.css             # Styles (if exists)
+│   └── styles.css             # Styles
+├── desktop_app.py             # PyQt6 desktop application
+├── build.py                   # PyInstaller build script
 ├── requirements.txt           # Python dependencies
 ├── requirements-python36.txt  # Python 3.6 specific deps
 ├── .env.example              # Environment variables template
+├── .gitignore                # Git ignore rules
 ├── proxy.php                 # PHP proxy for shared hosting
 └── .htaccess                 # Apache configuration
 
@@ -83,6 +87,40 @@ python -m uvicorn main:app --reload
 ```
 
 Visit `http://localhost:8000`
+
+## Desktop Application
+
+### Build Desktop App
+
+1. **Install dependencies**:
+```bash
+pip install -r requirements.txt
+```
+
+2. **Build executable**:
+```bash
+python build.py
+```
+
+This creates `dist/CompetitionMonitor.exe`
+
+3. **Run the application**:
+   - Copy `.env` file to the same directory as `CompetitionMonitor.exe`
+   - Double-click `CompetitionMonitor.exe`
+
+### Using Desktop App
+
+The desktop application provides:
+- **Text Analysis Tab**: Analyze competitor text descriptions
+- **Image Analysis Tab**: Upload and analyze visual content
+- **Settings Tab**: View API configuration status
+
+Features:
+- Standalone executable (no Python required)
+- Native desktop GUI with PyQt6
+- Async analysis with progress indicators
+- Example text loading
+- Results export capability
 
 ### Shared Hosting Deployment (Python 3.6)
 

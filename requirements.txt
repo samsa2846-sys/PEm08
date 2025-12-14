@@ -1,1 +1,26 @@
- 
+# MotionCraft Competition Analyzer - Full Dependencies
+# For local development and desktop application
+
+# FastAPI framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# HTTP client
+httpx==0.25.0
+
+# Data validation
+pydantic==2.4.2
+pydantic-settings==2.0.3
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Desktop GUI
+PyQt6==6.6.0
+
+# Build tool
+pyinstaller==6.1.0
+
+# Optional: Beautiful Soup for parsing (if needed)
+beautifulsoup4==4.12.2
+lxml==4.9.3
