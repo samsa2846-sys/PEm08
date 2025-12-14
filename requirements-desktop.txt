@@ -1,0 +1,15 @@
+# Minimal requirements for desktop app only
+# Skip packages that require compilation
+
+# Desktop GUI
+PyQt6>=6.7.0
+
+# HTTP client (for API calls)
+httpx>=0.25.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Build tool
+pyinstaller>=6.15.0
+

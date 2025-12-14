@@ -176,7 +176,7 @@ class CompetitionMonitor(QMainWindow):
         upload_btn.clicked.connect(self.select_image)
         upload_layout.addWidget(upload_btn)
         
-        self.image_label = QLabel("No image selected")
+        self.image_label = QLabel("Изображение не выбрано")
         self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         upload_layout.addWidget(self.image_label)
         upload_layout.addStretch()
@@ -265,17 +265,17 @@ Required variables:
         text = self.text_input.toPlainText().strip()
         
         if not text:
-            QMessageBox.warning(self, "Warning", "Please enter text to analyze")
+            QMessageBox.warning(self, "Предупреждение", "Введите текст для анализа")
             return
         
         if not settings.deepseek_api_key:
-            QMessageBox.critical(self, "Error", "DeepSeek API key not configured")
+            QMessageBox.critical(self, "Ошибка", "API ключ DeepSeek не настроен")
             return
         
         # Show progress
         self.text_progress.setVisible(True)
         self.text_progress.setRange(0, 0)  # Indeterminate
-        self.statusBar().showMessage("Analyzing text...")
+        self.statusBar().showMessage("Анализ текста...")
         self.text_results.clear()
         
         # Start worker
@@ -291,11 +291,11 @@ Required variables:
     def analyze_image(self):
         """Analyze selected image"""
         if not self.current_image_path:
-            QMessageBox.warning(self, "Warning", "Please select an image")
+            QMessageBox.warning(self, "Предупреждение", "Выберите изображение")
             return
         
         if not settings.yandex_vision_api_key:
-            QMessageBox.critical(self, "Error", "Yandex Vision API key not configured")
+            QMessageBox.critical(self, "Ошибка", "API ключ Yandex Vision не настроен")
             return
         
         # Read and encode image
@@ -304,13 +304,13 @@ Required variables:
                 image_data = f.read()
                 image_base64 = base64.b64encode(image_data).decode('utf-8')
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to read image: {e}")
+            QMessageBox.critical(self, "Ошибка", f"Не удалось прочитать изображение: {e}")
             return
         
         # Show progress
         self.image_progress.setVisible(True)
         self.image_progress.setRange(0, 0)
-        self.statusBar().showMessage("Analyzing image...")
+        self.statusBar().showMessage("Анализ изображения...")
         self.image_results.clear()
         
         # Start worker
@@ -323,59 +323,59 @@ Required variables:
     def on_text_analysis_complete(self, result: dict):
         """Handle text analysis completion"""
         self.text_progress.setVisible(False)
-        self.statusBar().showMessage("Analysis complete!")
+        self.statusBar().showMessage("Анализ завершен!")
         
         # Format results
         output = f"""
-=== Analysis Results ===
+=== Результаты анализа ===
 
-📊 Scores:
-  • Design: {result['design_score']}/10
-  • Animation: {result['animation_potential']}/10
-  • Innovation: {result['innovation_score']}/10
-  • Execution: {result['technical_execution']}/10
-  • Client Focus: {result['client_focus']}/10
+📊 Оценки:
+  • Дизайн: {result['design_score']}/10
+  • Анимация: {result['animation_potential']}/10
+  • Инновации: {result['innovation_score']}/10
+  • Исполнение: {result['technical_execution']}/10
+  • Фокус на клиентах: {result['client_focus']}/10
 
-✅ Strengths:
+✅ Сильные стороны:
 """
         for strength in result['strengths']:
             output += f"  • {strength}\n"
         
-        output += f"\n⚠️ Weaknesses:\n"
+        output += f"\n⚠️ Слабые стороны:\n"
         for weakness in result['weaknesses']:
             output += f"  • {weakness}\n"
         
-        output += f"\n🎨 Style Analysis:\n{result['style_analysis']}\n"
+        output += f"\n🎨 Анализ стиля:\n{result['style_analysis']}\n"
         
-        output += f"\n💡 Recommendations:\n"
+        output += f"\n💡 Рекомендации:\n"
         for rec in result['improvement_recommendations']:
             output += f"  • {rec}\n"
         
-        output += f"\n📝 Summary:\n{result['summary']}"
+        output += f"\n📝 Резюме:\n{result['summary']}"
         
         self.text_results.setPlainText(output)
     
     def on_image_analysis_complete(self, result: dict):
         """Handle image analysis completion"""
         self.image_progress.setVisible(False)
-        self.statusBar().showMessage("Analysis complete!")
+        self.statusBar().showMessage("Анализ завершен!")
         
         # Format results
         output = f"""
-=== Image Analysis Results ===
+=== Результаты анализа изображения ===
 
-📝 Description:
+📝 Описание:
 {result['description']}
 
-📊 Scores:
-  • Design: {result['design_score']}/10
-  • Animation Potential: {result['animation_potential']}/10
-  • Visual Style: {result['visual_style_score']}/10
+📊 Оценки:
+  • Дизайн: {result['design_score']}/10
+  • Потенциал анимации: {result['animation_potential']}/10
+  • Визуальный стиль: {result['visual_style_score']}/10
 
-🎨 Visual Style Analysis:
+🎨 Анализ визуального стиля:
 {result['visual_style_analysis']}
 
-💡 Recommendations:
+💡 Рекомендации:
 """
         for rec in result['recommendations']:
             output += f"  • {rec}\n"
@@ -386,21 +386,21 @@ Required variables:
         """Handle analysis error"""
         self.text_progress.setVisible(False)
         self.image_progress.setVisible(False)
-        self.statusBar().showMessage("Analysis failed")
-        QMessageBox.critical(self, "Analysis Error", f"Error: {error}")
+        self.statusBar().showMessage("Ошибка анализа")
+        QMessageBox.critical(self, "Ошибка анализа", f"Ошибка: {error}")
     
     def select_image(self):
         """Select image file"""
         file_path, _ = QFileDialog.getOpenFileName(
             self,
-            "Select Image",
+            "Выберите изображение",
             "",
-            "Images (*.png *.jpg *.jpeg *.bmp)"
+            "Изображения (*.png *.jpg *.jpeg *.bmp)"
         )
         
         if file_path:
             self.current_image_path = file_path
-            self.image_label.setText(f"Selected: {Path(file_path).name}")
+            self.image_label.setText(f"Выбрано: {Path(file_path).name}")
             
             # Show preview
             pixmap = QPixmap(file_path)
@@ -434,22 +434,22 @@ Required variables:
         
         self.text_input.setPlainText(example)
         self.name_input.setText("MotionCraft Studio")
-        self.statusBar().showMessage("Example loaded")
+        self.statusBar().showMessage("Пример загружен")
     
     def clear_text(self):
         """Clear text inputs"""
         self.text_input.clear()
         self.name_input.clear()
         self.text_results.clear()
-        self.statusBar().showMessage("Cleared")
+        self.statusBar().showMessage("Очищено")
     
     def clear_image(self):
         """Clear image"""
         self.current_image_path = None
-        self.image_label.setText("No image selected")
+        self.image_label.setText("Изображение не выбрано")
         self.image_preview.clear()
         self.image_results.clear()
-        self.statusBar().showMessage("Cleared")
+        self.statusBar().showMessage("Очищено")
     
     def apply_styles(self):
         """Apply application styles"""

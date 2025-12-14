@@ -30,10 +30,10 @@ class DeepSeekAnalyzer:
         payload = {
             "model": "deepseek-chat",
             "messages": [
-                {
-                    "role": "system",
-                    "content": "You are an expert analyst in 3D animation and motion design. Analyze competitors and provide detailed insights."
-                },
+            {
+                "role": "system",
+                "content": "Ты эксперт-аналитик в области 3D-анимации и моушн-дизайна. Анализируй конкурентов и предоставляй подробные выводы. Отвечай на русском языке."
+            },
                 {
                     "role": "user",
                     "content": prompt
@@ -58,25 +58,25 @@ class DeepSeekAnalyzer:
     
     def _build_analysis_prompt(self, text: str, competitor_name: Optional[str]) -> str:
         """Build analysis prompt"""
-        company_info = f"Company: {competitor_name}\n" if competitor_name else ""
+        company_info = f"Компания: {competitor_name}\n" if competitor_name else ""
         
         return f"""{company_info}
-Analyze this competitor in 3D animation/motion design:
+Проанализируй этого конкурента в области 3D-анимации и моушн-дизайна:
 
 {text}
 
-Provide analysis in JSON format:
+Предоставь анализ в формате JSON на русском языке:
 {{
     "design_score": <1-10>,
     "animation_potential": <1-10>,
     "innovation_score": <1-10>,
     "technical_execution": <1-10>,
     "client_focus": <1-10>,
-    "strengths": ["strength 1", "strength 2", ...],
-    "weaknesses": ["weakness 1", "weakness 2", ...],
-    "style_analysis": "detailed style analysis",
-    "improvement_recommendations": ["recommendation 1", "recommendation 2", ...],
-    "summary": "brief summary"
+    "strengths": ["сильная сторона 1", "сильная сторона 2", ...],
+    "weaknesses": ["слабая сторона 1", "слабая сторона 2", ...],
+    "style_analysis": "подробный анализ стиля",
+    "improvement_recommendations": ["рекомендация 1", "рекомендация 2", ...],
+    "summary": "краткое резюме"
 }}"""
     
     def _parse_analysis_response(self, content: str) -> DesignAnalysis:
@@ -156,18 +156,18 @@ class YandexVisionAnalyzer:
         
         # Use DeepSeek to analyze the visual content
         deepseek = DeepSeekAnalyzer()
-        analysis_prompt = f"""Analyze this design/screenshot description:
+        analysis_prompt = f"""Проанализируй описание дизайна/скриншота:
 
 {extracted_text}
 
-Provide visual analysis in JSON format:
+Предоставь визуальный анализ в формате JSON на русском языке:
 {{
-    "description": "brief description of visual content",
+    "description": "краткое описание визуального контента",
     "design_score": <1-10>,
     "animation_potential": <1-10>,
     "visual_style_score": <1-10>,
-    "visual_style_analysis": "detailed style analysis",
-    "recommendations": ["recommendation 1", "recommendation 2", ...]
+    "visual_style_analysis": "подробный анализ стиля",
+    "recommendations": ["рекомендация 1", "рекомендация 2", ...]
 }}"""
         
         headers_deepseek = {
@@ -178,7 +178,7 @@ Provide visual analysis in JSON format:
         payload_deepseek = {
             "model": "deepseek-chat",
             "messages": [
-                {"role": "system", "content": "You are a visual design expert."},
+                {"role": "system", "content": "Ты эксперт по визуальному дизайну. Отвечай на русском языке."},
                 {"role": "user", "content": analysis_prompt}
             ],
             "temperature": 0.7,

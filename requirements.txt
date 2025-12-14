@@ -16,10 +16,10 @@ pydantic-settings==2.0.3
 python-dotenv==1.0.0
 
 # Desktop GUI
-PyQt6==6.6.0
+PyQt6>=6.7.0
 
 # Build tool
-pyinstaller==6.1.0
+pyinstaller>=6.15.0
 
 # Optional: Beautiful Soup for parsing (if needed)
 beautifulsoup4==4.12.2
