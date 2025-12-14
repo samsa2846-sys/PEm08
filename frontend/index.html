@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Competition Analyzer - MotionCraft</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎬 MotionCraft — AI Competition Analyzer</h1>
+            <p class="subtitle">Professional tool for analyzing 3D animation and motion design market</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="text">📝 Text Analysis</button>
+            <button class="tab-btn" data-tab="image">🖼️ Image Analysis</button>
+            <button class="tab-btn" data-tab="parse">🌐 Site Parsing</button>
+            <button class="tab-btn" data-tab="history">📊 History</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content active" id="text-tab">
+            <div class="card">
+                <h2>Competitor Text Analysis</h2>
+                <p class="description">Paste text from competitor's site, service description or USP for deep AI analysis</p>
+                
+                <div class="form-group">
+                    <label for="competitor-name">Studio name (optional):</label>
+                    <input type="text" id="competitor-name" placeholder="E.g.: Buck, Giant, Tendril">
+                </div>
+                
+                <div class="form-group">
+                    <label for="text-input">Text to analyze:</label>
+                    <textarea id="text-input" rows="10" placeholder="Paste competitor's text here...&#10;&#10;Example: 'Our studio creates innovative 3D animation for IT startups...'"></textarea>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="analyzeText()">🔍 Analyze Text</button>
+                    <button class="btn btn-secondary" onclick="loadExampleText()">📋 Load Example</button>
+                </div>
+                
+                <div id="text-result" class="result-box" style="display: none;">
+                    <h3>Analysis Results:</h3>
+                    <div id="text-result-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="image-tab">
+            <div class="card">
+                <h2>Image Analysis</h2>
+                <p class="description">Upload screenshot, landing page or competitor's banner for visual analysis</p>
+                
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="image-input" accept="image/*" style="display: none;">
+                    <div class="upload-placeholder">
+                        <p>📁 Click or drag image here</p>
+                        <p class="small">Supported: PNG, JPG, JPEG (max. 10MB)</p>
+                    </div>
+                    <div id="image-preview" style="display: none;">
+                        <img id="preview-img" src="" alt="Preview">
+                        <p id="image-name"></p>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="analyzeImage()">🔍 Analyze Image</button>
+                    <button class="btn btn-secondary" onclick="clearImage()">🗑️ Clear</button>
+                </div>
+                
+                <div id="image-result" class="result-box" style="display: none;">
+                    <h3>Analysis Results:</h3>
+                    <div id="image-result-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="parse-tab">
+            <div class="card">
+                <h2>Competitor Site Parsing</h2>
+                <p class="description">Enter site URL for automatic data collection and AI analysis</p>
+                
+                <div class="form-group">
+                    <label for="url-input">Competitor site URL:</label>
+                    <input type="url" id="url-input" placeholder="https://example.com">
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="parseWebsite()">🌐 Start Parsing</button>
+                    <button class="btn btn-success" onclick="parseAllCompetitors()">🚀 Bulk Analysis</button>
+                </div>
+                
+                <div id="parse-progress" class="progress-bar" style="display: none;">
+                    <div class="progress-fill"></div>
+                    <span class="progress-text">Parsing in progress...</span>
+                </div>
+                
+                <div id="parse-result" class="result-box" style="display: none;">
+                    <h3>Parsing Results:</h3>
+                    <div id="parse-result-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="history-tab">
+            <div class="card">
+                <h2>Analysis History</h2>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="loadHistory()">🔄 Refresh</button>
+                    <button class="btn btn-danger" onclick="clearHistory()">🗑️ Clear History</button>
+                </div>
+                
+                <div id="history-list" class="history-container">
+                    <p class="loading">Loading history...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="status-bar" style="display: none;">
+            <span id="status-message"></span>
+        </div>
+    </div>
+
+    <script src="app.js" charset="UTF-8"></script>
+</body>
+</html>
